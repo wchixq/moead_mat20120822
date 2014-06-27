@@ -21,7 +21,7 @@ function pareto = moead( mop, varargin)
     itrCounter=1;
     while ~terminate(itrCounter)
         tic;
-        subproblems = evolve(subproblems, mop, params);
+        subproblems = evolve(subproblems, mop, params); % subproblem contains neighbor and current point. the same struct with INDS. "subproblem~INDS"
         disp(sprintf('iteration %u finished, time used: %u', itrCounter, toc));
         itrCounter=itrCounter+1;
     end
@@ -70,8 +70,8 @@ function [objDim, parDim, idealp, params, subproblems]=init(mop, propertyArgIn)
     
     %initial the subproblem's initital state.
     inds = randompoint(mop, params.popsize);
-    [V, INDS] = arrayfun(@evaluate, repmat(mop, size(inds)), inds, 'UniformOutput', 0);
-    v = cell2mat(V);
+    [V, INDS] = arrayfun(@evaluate, repmat(mop, size(inds)), inds, 'UniformOutput', 0); % INDS is the struct of different individuals 
+    v = cell2mat(V); % V is obj values
     idealp = min(idealp, min(v,[],2));
     
     %indcells = mat2cell(INDS, 1, ones(1,params.popsize));
@@ -85,7 +85,7 @@ function subproblems = evolve(subproblems, mop, params)
     for i=1:length(subproblems)
         %new point generation using genetic operations, and evaluate it.
         ind = genetic_op(subproblems, i, mop.domain, params);
-        [obj,ind] = evaluate(mop, ind);
+        [obj,ind] = evaluate(mop, ind); % evaluate the objective function using individual
         %update the idealpoint.
         idealpoint = min(idealpoint, obj);
         

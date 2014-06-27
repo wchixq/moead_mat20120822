@@ -13,8 +13,8 @@ end
    highend =domain(:,2);
    sigma = (highend-lowend)./20;
    
-   newparam = min(max(normrnd(x, sigma), lowend), highend);
-   C = rand(parDim, 1)<prob;
+   newparam = min(max(normrnd(x, sigma), lowend), highend);% x is \mu , generate a random number around x
+   C = rand(parDim, 1)<prob;  %select a small amount of dim to change
    x(C) = newparam(C);
    
 if isstruct(ind)

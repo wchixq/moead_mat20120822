@@ -31,8 +31,8 @@ function subp=init_weights(popsize, niche, objDim)
             distanceMatrix(i,j)=(A-B)'*(A-B);
             distanceMatrix(j,i)=distanceMatrix(i,j);
         end
-        [s,sindex]=sort(distanceMatrix(i,:));
-        subp(i).neighbour=sindex(1:niche)';
+        [s,sindex]=sort(distanceMatrix(i,:));   %distance is determined by the difference of weights
+        subp(i).neighbour=sindex(1:niche)'; %nearer topper, returns the index of the top niche near
     end
    
 end

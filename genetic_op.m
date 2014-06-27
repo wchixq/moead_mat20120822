@@ -29,7 +29,7 @@ function ind=genetic_op(subproblems, index, domain, params)
      
     %retrieve the individuals.
     points = [subproblems(si).curpoint];
-    selectpoints = [points.parameter];
+    selectpoints = [points.parameter];  % 3 neighbor points selected
     
     oldpoint = subproblems(index).curpoint.parameter;
     parDim = size(domain, 1);
@@ -40,7 +40,7 @@ function ind=genetic_op(subproblems, index, domain, params)
     deselect = randomarray<params.CR;
     deselect(jrandom)=true;
     newpoint = selectpoints(:,1)+params.F*(selectpoints(:,2)-selectpoints(:,3));
-    newpoint(~deselect)=oldpoint(~deselect);
+    newpoint(~deselect)=oldpoint(~deselect);  %other dims are not changed
     
     %repair the new value.
     newpoint=max(newpoint, domain(:,1));
